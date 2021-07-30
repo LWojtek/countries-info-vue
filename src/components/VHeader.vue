@@ -170,7 +170,7 @@
 
 
 @keyframes twinkle {
-    50% { opacity: 0.6; }
+    50% { opacity: 0.5; }
 }
 
 .switch__indicator {
@@ -206,7 +206,6 @@
         box-shadow: 13px 0px 0 0 rgba(#ffffff, 1) inset;
 
     }
-
 
 
 
@@ -246,7 +245,7 @@
         }
     }
 }
-
+    
 @keyframes cloud {
     0% {
         transform: translate(0%, -50%);
