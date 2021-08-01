@@ -8,12 +8,29 @@
 
 html {
     font-size: 10px;
+    scroll-behavior: smooth;
 }
+
 
 body {
     font-family: 'Nunito Sans', sans-serif;
-
-}
+    background-color: $very-light-grey;
+    height: 100vh;
+    overflow-x: hidden; 
+  
+    &.white {
+      background: #fff;
+    }
+  
+    &.dark-theme {
+        background-color: $very-dark-blue;
+    }
+  
+    @media (prefers-color-scheme: dark) {
+        background-color: $very-dark-blue;
+    }
+  }
+  
 
 .relative {
     position: relative;

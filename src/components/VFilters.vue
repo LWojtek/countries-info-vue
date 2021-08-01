@@ -7,11 +7,12 @@
                 placeholder="Search for a country..."
                 v-model="search"
                 @keyup="filterCountries"
+                @input="persistInput"
                 >
         </div>
         <div class="filters__dropdown">
             <div class="filters__select">
-                <select @click="toggle" v-model="selectedArea" @change="filterCountries">
+                <select @click="toggle" v-model="selectedArea" @change="filterCountries(); persistSelect()">
                     <option value="" selected>All</option>
                     <option 
                         v-for="(category, index) in filteringCategories"
@@ -61,7 +62,14 @@ import { mapState } from 'vuex';
                 return categories;
             }
         },
-
+        created(){
+            if (localStorage.search) {
+                this.search = localStorage.getItem('search');
+            }
+            if (localStorage.selectedArea) {
+                this.selectedArea = localStorage.getItem('selectedArea')
+            }
+        },
         methods: {
             toggle(){
                 if (this.active === false ) {
@@ -69,6 +77,12 @@ import { mapState } from 'vuex';
                 } else {
                     this.active = false;
                 }
+            },
+            persistInput(){
+                localStorage.setItem('search', this.search);
+            },
+            persistSelect(){
+                localStorage.setItem('selectedArea', this.selectedArea);
             },
             filterCountries(){
                 this.$store.state.filteredCountries = this.countries.filter((country) => {

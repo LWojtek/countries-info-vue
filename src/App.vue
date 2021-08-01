@@ -1,10 +1,10 @@
 <template>
-  <body id="app" :class="[{'dark-theme' : darkmode}, {'white' : this.$route.path !== '/'}]"  >
+  <div id="app" :class="[{'dark-theme' : darkmode}, {'white' : this.$route.path !== '/'}]">
     <VHeader />
     <router-view/>
     <VLoader v-if="this.$store.state.loading"/>
     <VNoResults v-if="this.$store.state.filteredCountries.length < 1 && this.$store.state.loading === false"/>
-  </body>
+  </div>
 </template>
 
 <script>
@@ -35,17 +35,15 @@ export default {
     this.bus.$on('darkmode', (on) => {
       this.darkmode = on;
     });
-      this.darkmode = JSON.parse(localStorage.getItem('darkmode'))
-      this.$store.dispatch('fetchCountries')
-  },  
-  
+      this.darkmode = JSON.parse(localStorage.getItem('darkmode'));
+      this.$store.dispatch('fetchCountries');
+  },
   watch: {
     darkmode(newVal) {
       localStorage.setItem("darkmode", JSON.stringify(this.darkmode))      
       this.bus.$emit('darkmode', newVal);
       }, 
-    } 
-
+  },
 }
 
 
@@ -56,23 +54,16 @@ export default {
 @import '@/assets/scss/global.scss';
 @import '@/assets/scss/variables.scss';
 
+#app {
+    min-height: 100vh;
 
-body {
-  background-color: $very-light-grey;
-  height: 100vh;
-  overflow-x: hidden; 
-
-  &.white {
-    background: #fff;
-  }
-
-  &.dark-theme {
-      background-color: $very-dark-blue;
-  }
-
-  @media (prefers-color-scheme: dark) {
-      background-color: $very-dark-blue;
-  }
+    &.dark-theme {
+        background-color: $very-dark-blue;
+    }
+  
+    @media (prefers-color-scheme: dark) {
+        background-color: $very-dark-blue;
+    }
 }
 
 

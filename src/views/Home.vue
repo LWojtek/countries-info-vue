@@ -1,6 +1,5 @@
 <template>
   <main>
-
       <VFilters />
       <VContent />
   </main>
@@ -18,7 +17,7 @@ export default {
 
     VContent,
     VFilters
-  }
+  },
 }
 </script>
 

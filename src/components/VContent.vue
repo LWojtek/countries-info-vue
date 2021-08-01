@@ -7,12 +7,14 @@
                 :country="country"
             />
         </ul>
-        <div class="button__wrapper">
-            <div class="back__top">
-                <!-- <span>Back to top</span> -->
-                <i class="fas fa-3x fa-arrow-up"></i>
+        <a href="#">
+            <div class="button__wrapper">
+                <div class="back__top" id="icon">
+                    <!-- <span>Back to top</span> -->
+                    <i class="fas fa-3x fa-arrow-up"></i>
+                </div>
             </div>
-        </div>
+        </a>
     </div>
 </template>
 
@@ -29,8 +31,7 @@ import VCard from '@/components/VCard.vue';
         },
         data() {
             return {
-                showButton: true,
-                lastScrollPosition: 0
+                showButton: true,  
             }
         },
         computed: {
@@ -38,7 +39,34 @@ import VCard from '@/components/VCard.vue';
                 'countries',
                 'filteredCountries'
             ]),
-        }, 
+        },
+        mounted(){
+            let lastKnownScrollPosition = 0;
+            let ticking = false;
+        
+
+            function doSomething(scrollPos) {
+                const topBtn = document.querySelector('.button__wrapper');
+
+                if (scrollPos > 500) {
+                    topBtn.classList.add('active');
+                } else {
+                    topBtn.classList.remove('active');
+                }
+            }
+
+            document.addEventListener('scroll', function() {
+            lastKnownScrollPosition = window.scrollY;
+
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                    doSomething(lastKnownScrollPosition);
+                    ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        },
 
     }
 </script>
@@ -74,7 +102,13 @@ ul {
     height: 10rem;
     margin-left: -25.8rem;
     bottom: 3rem;
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 300%, 0);
+    transition: 250ms;
+
+    &.active {
+        transform: translate3d(0, -100%, 0);
+    }
+    
 }
 
 .button__wrapper.button--hidden {
