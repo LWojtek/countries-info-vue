@@ -10,37 +10,37 @@
         </div>
         <div class="country__wrapper">
             <div class="country__wrapper--left">
-                <img :src="currentCountry.flag" alt="">
+                <img :src="currentCountry[0].flag" alt="">
             </div>
             <div class="country__wrapper--right">
-                <h2>{{currentCountry.name}}</h2>
+                <h2>{{currentCountry[0].name}}</h2>
                 <div class="wrap">
                     <div class="country__right--body">
                         <div>
-                            <p>Native Name: <span>{{currentCountry.nativeName}}</span></p>
-                            <p>Population: <span>{{currentCountry.population}}</span></p>
-                            <p v-if="currentCountry.region">Region: <span>{{currentCountry.region}}</span></p>
-                            <p v-if="currentCountry.subregion">Sub Region: <span>{{currentCountry.subregion}}</span></p>
-                            <p v-if="currentCountry.capital">Capital: <span>{{currentCountry.capital}}</span></p>
+                            <p>Native Name: <span>{{currentCountry[0].nativeName}}</span></p>
+                            <p>Population: <span>{{currentCountry[0].population}}</span></p>
+                            <p v-if="currentCountry[0].region">Region: <span>{{currentCountry[0].region}}</span></p>
+                            <p v-if="currentCountry[0].subregion">Sub Region: <span>{{currentCountry[0].subregion}}</span></p>
+                            <p v-if="currentCountry[0].capital">Capital: <span>{{currentCountry[0].capital}}</span></p>
                         </div>            
                         <div>
-                            <p>Top Level Domain: <span>{{currentCountry.topLevelDomain[0]}}</span></p>
+                            <p>Top Level Domain: <span>{{currentCountry[0].topLevelDomain[0]}}</span></p>
                             <p>Currencies: <span 
-                                v-for="(currency,index) in currentCountry.currencies" 
+                                v-for="(currency,index) in currentCountry[0].currencies" 
                                 :key="index">
                                 {{currency.name}}
                                 </span></p>
                             <p>Languages: <span 
-                                v-for="(language, index) in currentCountry.languages"
+                                v-for="(language, index) in currentCountry[0].languages"
                                 :key="index">
                                 {{language.name}}
                                 </span></p>
                         </div>            
                     </div>
-                    <div class="country__right--footer" v-if="currentCountry.borders.length > 0">
+                    <div class="country__right--footer" v-if="currentCountry[0].borders && currentCountry[0].borders.length > 0">
                         <p class="borders">Border Countries: </p>
-                        <div>
-                            <p class="border" v-for="(country, index) in currentCountry.borders" :key="index">{{country}}</p>
+                        <div v-if="currentCountry[0].borders">
+                            <p class="border" v-for="(country, index) in currentCountry[0].borders" :key="index">{{country}}</p>
                         </div>
                     </div>
                 </div>
@@ -63,14 +63,11 @@ import { mapState } from 'vuex';
             ...mapState([
                 'countries'
             ]),
-            indexVerified(){
+            currentCountry(){
                 return this.countries.filter(country => {
                     return country.name === this.id
                 });
-            },
-            currentCountry(){
-                return this.indexVerified[0]
-            },
+            }
         }
     }
 </script>
